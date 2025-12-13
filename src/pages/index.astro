@@ -1,114 +1,163 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.jsx';
+import HeroTitle from '../components/HeroTitle.jsx';
+import FadeIn from '../components/FadeIn.jsx';
+import ServiceCard from '../components/ServiceCard.jsx';
+
+// --- ADATOK ---
+
+// Árlisták adatai
+const ferfiArlista = [
+  { name: "Gépi vágás", price: "3.500 Ft" },
+  { name: "Ollós vágás + mosás", price: "4.500 Ft" },
+  { name: "Szakálligazítás", price: "2.500 Ft" },
+  { name: "Apa-fia vágás", price: "7.500 Ft" },
+];
+
+const noiArlista = [
+  { name: "Vágás + Szárítás", price: "6.500 Ft-tól" },
+  { name: "Tőfestés", price: "8.900 Ft-tól" },
+  { name: "Teljes festés", price: "12.000 Ft-tól" },
+  { name: "Balayage / Ombre", price: "18.000 Ft-tól" },
+];
+
+// Galéria képek és a hozzájuk tartozó leírások
+// FONTOS: A képek (munka1.png stb.) legyenek a /public mappában!
+const galleryItems = [
+  { img: 'munka1.png', text: 'Selymes Egyenes Balayage' },
+  { img: 'munka2.png', text: 'Csokoládé Hullámok' },
+  { img: 'munka3.png', text: 'Extrém Fonás' },
+  { img: 'munka4.png', text: 'Alkalmi Feltűzés' },
+  { img: 'munka5.png', text: 'Hamvas Szőke' },
+  { img: 'munka6.png', text: 'Vivid Color Ombre' }
+];
 ---
 
 <Layout title="Nagy Sándor Hair & Beauty">
 	<Navbar client:load />
 
 	<main>
-		<section class="h-screen flex items-center justify-center text-center px-4">
-			<div class="max-w-4xl mx-auto space-y-6 animate-fade-in">
-				<img src="/logo.png" alt="Nagy Sándor Logo" class="w-64 md:w-96 mx-auto mb-8 drop-shadow-2xl" />
-				<h1 class="text-4xl md:text-6xl font-bold text-white uppercase tracking-widest">
-					Stílus <span class="text-ns-red">&</span> Minőség
-				</h1>
-				<p class="text-xl text-gray-300 max-w-2xl mx-auto">
-					Professzionális hajvágás és stílustanácsadás Szegeden.
-				</p>
-				<div class="pt-8">
-					<a href="#idopont" class="bg-ns-red hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full transition duration-300 uppercase tracking-wide text-lg shadow-lg hover:shadow-red-900/50">
-						Időpontfoglalás
-					</a>
+		<section class="min-h-screen flex items-center justify-center text-center px-4 pt-20 overflow-hidden">
+			<div class="max-w-5xl mx-auto space-y-6">
+				
+				<div class="mb-12">
+					<HeroTitle client:load />
 				</div>
+
+				<FadeIn client:load delay={0.5} direction="up">
+					<h3 class="text-2xl md:text-4xl font-bold text-white uppercase tracking-widest mt-8">
+						Stílus <span class="text-ns-red">&</span> Minőség
+					</h3>
+					
+					<p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mt-4">
+						Professzionális hajvágás és stílustanácsadás Szegeden.
+					</p>
+					
+					<div class="pt-12">
+						<a href="#idopont" class="bg-ns-red hover:bg-red-700 text-white font-bold py-4 px-10 rounded-full transition duration-300 uppercase tracking-wide text-lg shadow-lg hover:shadow-red-900/50 hover:-translate-y-1 inline-block">
+							Időpontfoglalás
+						</a>
+					</div>
+				</FadeIn>
 			</div>
 		</section>
 
-		<section id="rolunk" class="py-20 bg-black/80 backdrop-blur-sm">
-			<div class="max-w-4xl mx-auto px-4 text-center">
+		<section id="rolunk" class="py-24 bg-black/80 backdrop-blur-sm">
+			<FadeIn client:visible direction="up" className="max-w-4xl mx-auto px-4 text-center">
 				<h2 class="text-3xl md:text-4xl font-bold text-white mb-8 uppercase border-b-2 border-ns-red inline-block pb-2">Rólunk</h2>
 				<p class="text-lg text-gray-300 leading-relaxed mb-6">
 					Üdvözöllek a Nagy Sándor Hair & Beauty szalonban! Célunk, hogy minden vendégünk magabiztosan és elégedetten távozzon. Modern környezetben, a legújabb technikákkal és prémium anyagokkal dolgozunk, hogy megtaláljuk a hozzád legjobban illő stílust.
 				</p>
-			</div>
+			</FadeIn>
 		</section>
 
-		<section id="arak" class="py-20">
-			<div class="max-w-4xl mx-auto px-4">
-				<h2 class="text-3xl md:text-4xl font-bold text-white mb-12 text-center uppercase">Szolgáltatások</h2>
-				<div class="grid md:grid-cols-2 gap-8">
-					<div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-ns-red transition">
-						<h3 class="text-xl font-bold text-ns-red mb-4">Férfi Hajvágás</h3>
-						<ul class="space-y-3 text-gray-300">
-							<li class="flex justify-between border-b border-gray-700 pb-2"><span>Gépi vágás</span> <span>3.500 Ft</span></li>
-							<li class="flex justify-between border-b border-gray-700 pb-2"><span>Ollós vágás + mosás</span> <span>4.500 Ft</span></li>
-							<li class="flex justify-between border-b border-gray-700 pb-2"><span>Szakálligazítás</span> <span>2.500 Ft</span></li>
-						</ul>
-					</div>
-					<div class="bg-white/5 p-6 rounded-lg border border-white/10 hover:border-ns-red transition">
-						<h3 class="text-xl font-bold text-ns-red mb-4">Női Hajvágás & Festés</h3>
-						<ul class="space-y-3 text-gray-300">
-							<li class="flex justify-between border-b border-gray-700 pb-2"><span>Vágás + Szárítás</span> <span>6.500 Ft-tól</span></li>
-							<li class="flex justify-between border-b border-gray-700 pb-2"><span>Tőfestés</span> <span>8.900 Ft-tól</span></li>
-							<li class="flex justify-between border-b border-gray-700 pb-2"><span>Balayage / Ombre</span> <span>18.000 Ft-tól</span></li>
-						</ul>
-					</div>
+		<section id="arak" class="py-24 overflow-hidden">
+			<div class="max-w-5xl mx-auto px-4">
+				<FadeIn client:visible>
+					<h2 class="text-3xl md:text-4xl font-bold text-white mb-16 text-center uppercase">Szolgáltatások</h2>
+				</FadeIn>
+				
+				<div class="grid md:grid-cols-2 gap-8 perspective-1000">
+					<FadeIn client:visible delay={0.2} direction="left">
+						<ServiceCard client:visible title="Férfiaknak" items={ferfiArlista} />
+					</FadeIn>
+					<FadeIn client:visible delay={0.4} direction="right">
+						<ServiceCard client:visible title="Hölgyeknek" items={noiArlista} />
+					</FadeIn>
 				</div>
 			</div>
 		</section>
 
-		<section id="munkaink" class="py-20 bg-black/80 backdrop-blur-sm">
+		<section id="munkaink" class="py-24 bg-black/80 backdrop-blur-sm">
 			<div class="max-w-6xl mx-auto px-4 text-center">
-				<h2 class="text-3xl md:text-4xl font-bold text-white mb-12 uppercase">Munkáink</h2>
-				<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-					<div class="aspect-square bg-gray-800 rounded-lg overflow-hidden border border-white/10">
-						<div class="w-full h-full flex items-center justify-center text-gray-500">Kép 1</div>
-					</div>
-					<div class="aspect-square bg-gray-800 rounded-lg overflow-hidden border border-white/10">
-						<div class="w-full h-full flex items-center justify-center text-gray-500">Kép 2</div>
-					</div>
-					<div class="aspect-square bg-gray-800 rounded-lg overflow-hidden border border-white/10">
-						<div class="w-full h-full flex items-center justify-center text-gray-500">Kép 3</div>
-					</div>
+				<FadeIn client:visible>
+					<h2 class="text-3xl md:text-4xl font-bold text-white mb-12 uppercase">Munkáink</h2>
+				</FadeIn>
+				
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+					{galleryItems.map((item, i) => (
+						<FadeIn client:visible delay={i * 0.1} direction="up" key={item.img}>
+							<div class="aspect-square rounded-lg overflow-hidden border border-white/10 group relative hover:border-ns-red transition duration-500 cursor-pointer">
+								
+								<img 
+									src={`/${item.img}`} 
+									alt={item.text} 
+									class="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
+								/>
+								
+								<div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center p-4">
+									<span class="text-white font-bold uppercase tracking-widest border-b-2 border-ns-red pb-1 text-lg">
+										{item.text}
+									</span>
+								</div>
+							</div>
+						</FadeIn>
+					))}
 				</div>
 			</div>
 		</section>
 
-		<section id="idopont" class="py-20">
-			<div class="max-w-4xl mx-auto px-4 text-center">
-				<div class="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-white/20 shadow-2xl">
+		<section id="idopont" class="py-24">
+			<FadeIn client:visible direction="up" className="max-w-4xl mx-auto px-4 text-center">
+				<div class="bg-gradient-to-br from-gray-900 to-black p-10 rounded-2xl border border-white/20 shadow-2xl">
 					<h2 class="text-3xl font-bold text-white mb-6 uppercase">Időpontfoglalás</h2>
 					<p class="text-xl text-gray-300 mb-8">
 						Jelentkezz be hozzánk telefonon a gyors egyeztetésért!
 					</p>
-					<a href="tel:+36305355678" class="text-2xl md:text-4xl font-bold text-ns-red hover:text-white transition block mb-8">
+					
+					<a href="tel:+36305355678" class="text-3xl md:text-5xl font-bold text-ns-red hover:text-white transition duration-300 block mb-12">
 						+36 30 535 5678
 					</a>
 					
-					<hr class="border-gray-700 my-8" />
+					<hr class="border-gray-800 my-10" />
 					
-					<div id="kapcsolat" class="text-left md:text-center space-y-4 text-gray-300">
-						<h3 class="text-xl font-bold text-white uppercase">Elérhetőségek</h3>
-						<p class="flex items-center justify-center gap-2">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-ns-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-							</svg>
-							6721 Szeged, József Attila sgrt. 4-2/26
-						</p>
-						<p class="flex items-center justify-center gap-2">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-ns-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-							</svg>
-							06 30 535 5678
-						</p>
+					<div id="kapcsolat" class="grid md:grid-cols-2 gap-8 text-left">
+						<div class="flex flex-col items-center md:items-start space-y-3">
+							<h3 class="text-xl font-bold text-white uppercase mb-2">Címünk</h3>
+							<p class="flex items-center gap-3 text-gray-300">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-ns-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+								</svg>
+								<span>6721 Szeged,<br/>József Attila sgrt. 4-2/26</span>
+							</p>
+						</div>
+						
+						<div class="flex flex-col items-center md:items-start space-y-3">
+							<h3 class="text-xl font-bold text-white uppercase mb-2">Nyitvatartás</h3>
+							<p class="text-gray-300">
+								Hétfő - Péntek: 09:00 - 18:00<br/>
+								Szombat: 09:00 - 13:00
+							</p>
+						</div>
 					</div>
 				</div>
-			</div>
+			</FadeIn>
 		</section>
 	</main>
 	
-	<footer class="bg-black py-6 text-center text-gray-500 text-sm">
+	<footer class="bg-black py-8 text-center text-gray-600 text-sm border-t border-gray-900">
 		&copy; {new Date().getFullYear()} Nagy Sándor Hair & Beauty. Minden jog fenntartva.
 	</footer>
 </Layout>

@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ns-black: #1a1a1a;
+  --color-ns-silver: #e0e0e0;
+  --color-ns-red: #D32F2F;
+  --font-sans: Helvetica, Arial, sans-serif;
+  
+  --animate-fade-in: fade-in 1s ease-out;
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
