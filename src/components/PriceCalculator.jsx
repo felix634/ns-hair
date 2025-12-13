@@ -1,173 +1,200 @@
----
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.jsx';
-import HeroTitle from '../components/HeroTitle.jsx';
-import FadeIn from '../components/FadeIn.jsx';
-// Itt importáljuk az új árkalkulátort a statikus kártyák helyett
-import PriceCalculator from '../components/PriceCalculator.jsx';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-// --- ADATOK ---
+export default function PriceCalculator() {
+  const [gender, setGender] = useState("female"); // Alapértelmezett: Nő
+  const [length, setLength] = useState("short");  // Alapértelmezett: Rövid
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [total, setTotal] = useState(0);
 
-// Galéria képek és a hozzájuk tartozó leírások
-const galleryItems = [
-  { img: 'munka1.png', text: 'Selymes Egyenes Balayage' },
-  { img: 'munka2.png', text: 'Csokoládé Hullámok' },
-  { img: 'munka3.png', text: 'Extrém Fonás' },
-  { img: 'munka4.png', text: 'Alkalmi Feltűzés' },
-  { img: 'munka5.png', text: 'Hamvas Szőke' },
-  { img: 'munka6.png', text: 'Vivid Color Ombre' }
-];
----
+  // --- ÁRLISTA ADATBÁZIS ---
+  // Itt tudod módosítani az árakat és a szolgáltatásokat
+  const prices = {
+    male: {
+      base: [
+        { id: "m_cut_machine", name: "Gépi vágás", price: 3500 },
+        { id: "m_cut_scissors", name: "Ollós vágás + mosás", price: 4500 },
+        { id: "m_beard", name: "Szakálligazítás", price: 2500 },
+        { id: "m_father_son", name: "Apa-fia vágás", price: 7500 },
+        { id: "m_gray", name: "Őszülés tompítás", price: 3000 },
+      ],
+    },
+    female: {
+      short: [
+        { id: "f_s_wash_dry", name: "Mosás + Szárítás", price: 3500 },
+        { id: "f_s_cut", name: "Vágás (mosással)", price: 6500 },
+        { id: "f_s_root", name: "Tőfestés", price: 8900 },
+        { id: "f_s_full", name: "Teljes festés", price: 12000 },
+        { id: "f_s_balayage", name: "Balayage / Ombre", price: 18000 },
+      ],
+      long: [
+        { id: "f_l_wash_dry", name: "Mosás + Szárítás", price: 4500 },
+        { id: "f_l_cut", name: "Vágás (mosással)", price: 8500 },
+        { id: "f_l_root", name: "Tőfestés", price: 9900 },
+        { id: "f_l_full", name: "Teljes festés", price: 16000 },
+        { id: "f_l_balayage", name: "Balayage / Ombre", price: 22000 },
+      ],
+    },
+  };
 
-<Layout title="Nagy Sándor Hair & Beauty">
-	<Navbar client:load />
+  // Amikor váltasz nemet vagy hosszt, nullázzuk a kijelölést
+  const handleGenderChange = (g) => {
+    setGender(g);
+    setSelectedServices([]);
+  };
 
-	<main>
-		<section class="min-h-screen flex items-center justify-center text-center px-4 pt-20 overflow-hidden">
-			<div class="max-w-5xl mx-auto space-y-6">
-				
-				<div class="mb-12">
-					<HeroTitle client:load />
-				</div>
+  const handleLengthChange = (l) => {
+    setLength(l);
+    setSelectedServices([]);
+  };
 
-				<FadeIn client:load delay={0.5} direction="up">
-					<h3 class="text-2xl md:text-4xl font-bold text-white uppercase tracking-widest mt-8">
-						Stílus <span class="text-ns-red">&</span> Minőség
-					</h3>
-					
-					<p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mt-4">
-						Professzionális hajvágás és stílustanácsadás Szegeden.
-					</p>
-					
-					<div class="pt-12">
-						<a href="#idopont" class="bg-ns-red hover:bg-red-700 text-white font-bold py-4 px-10 rounded-full transition duration-300 uppercase tracking-wide text-lg shadow-lg hover:shadow-red-900/50 hover:-translate-y-1 inline-block">
-							Időpontfoglalás
-						</a>
-					</div>
-				</FadeIn>
-			</div>
-		</section>
+  // Checkbox kezelése
+  const toggleService = (service) => {
+    if (selectedServices.find((s) => s.id === service.id)) {
+      setSelectedServices(selectedServices.filter((s) => s.id !== service.id));
+    } else {
+      setSelectedServices([...selectedServices, service]);
+    }
+  };
 
-		<section id="rolunk" class="py-24 bg-black/80 backdrop-blur-sm">
-			<FadeIn client:visible direction="up" className="max-w-4xl mx-auto px-4 text-center">
-				<h2 class="text-3xl md:text-4xl font-bold text-white mb-8 uppercase border-b-2 border-ns-red inline-block pb-2">Rólunk</h2>
-				<p class="text-lg text-gray-300 leading-relaxed mb-6">
-					Üdvözöllek a Nagy Sándor Hair & Beauty szalonban! Célunk, hogy minden vendégünk magabiztosan és elégedetten távozzon. Modern környezetben, a legújabb technikákkal és prémium anyagokkal dolgozunk, hogy megtaláljuk a hozzád legjobban illő stílust.
-				</p>
-			</FadeIn>
-		</section>
+  // Összeg számolása
+  useEffect(() => {
+    const sum = selectedServices.reduce((acc, curr) => acc + curr.price, 0);
+    setTotal(sum);
+  }, [selectedServices]);
 
-		<section id="arak" class="py-24 overflow-hidden">
-			<div class="max-w-5xl mx-auto px-4">
-				<FadeIn client:visible>
-					<h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center uppercase">Szolgáltatások & Árak</h2>
-					<p class="text-gray-400 text-center max-w-2xl mx-auto mb-12">
-						Állítsd össze a saját csomagodat az árkalkulátor segítségével! Válaszd ki a nemet, a hajhosszt és a kívánt szolgáltatásokat a becsült összegért.
-					</p>
-				</FadeIn>
-				
-				<FadeIn client:visible delay={0.2} direction="up">
-					<PriceCalculator client:visible />
-				</FadeIn>
-			</div>
-		</section>
+  // Az aktuális lista lekérése
+  const currentOptions =
+    gender === "male" ? prices.male.base : prices.female[length];
 
-		<section id="munkaink" class="py-24 bg-black/80 backdrop-blur-sm">
-			<div class="max-w-6xl mx-auto px-4 text-center">
-				<FadeIn client:visible>
-					<h2 class="text-3xl md:text-4xl font-bold text-white mb-12 uppercase">Munkáink</h2>
-				</FadeIn>
-				
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-					{galleryItems.map((item, i) => (
-						<FadeIn client:visible delay={i * 0.1} direction="up" key={item.img}>
-							<div class="aspect-square rounded-lg overflow-hidden border border-white/10 group relative hover:border-ns-red transition duration-500 cursor-pointer">
-								<img 
-									src={`/${item.img}`} 
-									alt={item.text} 
-									class="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
-								/>
-								<div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center p-4">
-									<span class="text-white font-bold uppercase tracking-widest border-b-2 border-ns-red pb-1 text-lg">
-										{item.text}
-									</span>
-								</div>
-							</div>
-						</FadeIn>
-					))}
-				</div>
-			</div>
-		</section>
+  return (
+    <div className="bg-gradient-to-br from-gray-900 to-black p-6 md:p-8 rounded-2xl border border-white/20 shadow-2xl max-w-3xl mx-auto">
+      <h3 className="text-2xl font-bold text-white mb-6 uppercase text-center border-b border-gray-800 pb-4">
+        Árkalkulátor
+      </h3>
 
-		<section id="idopont" class="py-24 relative z-20">
-			<FadeIn client:visible direction="up" className="max-w-6xl mx-auto px-4">
-				
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-					
-					<div class="bg-gradient-to-br from-gray-900 to-black p-10 rounded-2xl border border-white/20 shadow-2xl text-center md:text-left flex flex-col justify-center h-full">
-						<h2 class="text-3xl font-bold text-white mb-6 uppercase">Időpontfoglalás</h2>
-						<p class="text-xl text-gray-300 mb-8">
-							Jelentkezz be hozzánk telefonon a gyors egyeztetésért!
-						</p>
-						
-						<a href="tel:+36305355678" class="text-3xl md:text-4xl font-bold text-ns-red hover:text-white transition duration-300 block mb-12">
-							+36 30 535 5678
-						</a>
-						
-						<hr class="border-gray-800 my-8" />
-						
-						<div class="space-y-6 text-left">
-							<div class="flex flex-col md:flex-row items-start md:items-center gap-4">
-								<div class="bg-ns-red/10 p-3 rounded-full shrink-0">
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-ns-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-									</svg>
-								</div>
-								<div>
-									<h3 class="text-lg font-bold text-white uppercase mb-1">Címünk</h3>
-									<p class="text-gray-300">6721 Szeged, József Attila sgrt. 4-2/26</p>
-								</div>
-							</div>
-							
-							<div class="flex flex-col md:flex-row items-start md:items-center gap-4">
-								<div class="bg-ns-red/10 p-3 rounded-full shrink-0">
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-ns-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-									</svg>
-								</div>
-								<div>
-									<h3 class="text-lg font-bold text-white uppercase mb-1">Nyitvatartás</h3>
-									<p class="text-gray-300">
-										Hétfő - Péntek: 09:00 - 18:00<br/>
-										Szombat: 09:00 - 13:00
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
+      {/* 1. NEM KIVÁLASZTÁSA */}
+      <div className="mb-8">
+        <p className="text-gray-400 text-sm uppercase tracking-widest mb-3 text-center">Válassz nemet</p>
+        <div className="flex justify-center gap-4">
+          <button
+            onClick={() => handleGenderChange("female")}
+            className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
+              gender === "female"
+                ? "bg-ns-red text-white shadow-lg shadow-ns-red/30"
+                : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+            }`}
+          >
+            Hölgy
+          </button>
+          <button
+            onClick={() => handleGenderChange("male")}
+            className={`px-6 py-3 rounded-full font-bold transition-all duration-300 ${
+              gender === "male"
+                ? "bg-ns-red text-white shadow-lg shadow-ns-red/30"
+                : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+            }`}
+          >
+            Úr
+          </button>
+        </div>
+      </div>
 
-					<div class="rounded-2xl overflow-hidden border border-white/20 shadow-2xl h-full min-h-[400px]">
-						<div class="w-full h-full relative">
-							<iframe 
-								src="https://maps.google.com/maps?q=6721+Szeged,+József+Attila+sgrt.+4&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-								width="100%" 
-								height="100%" 
-								style="border:0;" 
-								allowfullscreen="" 
-								loading="lazy" 
-								class="absolute inset-0 w-full h-full filter grayscale invert hover:grayscale-0 hover:invert-0 transition duration-700 ease-in-out"
-								title="Nagy Sándor Hair & Beauty Térkép"
-							></iframe>
-						</div>
-					</div>
-				</div>
+      {/* 2. HAJHOSSZ (Csak nőknél) */}
+      <AnimatePresence>
+        {gender === "female" && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mb-8 overflow-hidden"
+          >
+            <p className="text-gray-400 text-sm uppercase tracking-widest mb-3 text-center">Hajhossz</p>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={() => handleLengthChange("short")}
+                className={`px-4 py-2 rounded-lg border transition-all duration-300 ${
+                  length === "short"
+                    ? "border-ns-silver text-white bg-white/10"
+                    : "border-gray-700 text-gray-500 hover:border-gray-500"
+                }`}
+              >
+                Rövid / Félhosszú
+              </button>
+              <button
+                onClick={() => handleLengthChange("long")}
+                className={`px-4 py-2 rounded-lg border transition-all duration-300 ${
+                  length === "long"
+                    ? "border-ns-silver text-white bg-white/10"
+                    : "border-gray-700 text-gray-500 hover:border-gray-500"
+                }`}
+              >
+                Hosszú
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-			</FadeIn>
-		</section>
-	</main>
-	
-	<footer class="bg-black py-8 text-center text-gray-600 text-sm border-t border-gray-900 relative z-20">
-		&copy; {new Date().getFullYear()} Nagy Sándor Hair & Beauty. Minden jog fenntartva.
-	</footer>
-</Layout>
+      {/* 3. SZOLGÁLTATÁSOK LISTÁJA */}
+      <div className="grid md:grid-cols-2 gap-4 mb-8">
+        {currentOptions.map((item) => {
+          const isSelected = selectedServices.find((s) => s.id === item.id);
+          return (
+            <motion.div
+              key={item.id}
+              layout
+              onClick={() => toggleService(item)}
+              className={`cursor-pointer p-4 rounded-xl border flex justify-between items-center transition-all duration-200 ${
+                isSelected
+                  ? "bg-ns-red/10 border-ns-red text-white"
+                  : "bg-white/5 border-transparent text-gray-400 hover:bg-white/10 hover:border-gray-600"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                {/* Egyedi Checkbox design */}
+                <div
+                  className={`w-5 h-5 rounded border flex items-center justify-center ${
+                    isSelected ? "bg-ns-red border-ns-red" : "border-gray-500"
+                  }`}
+                >
+                  {isSelected && (
+                    <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </div>
+                <span className="font-medium">{item.name}</span>
+              </div>
+              <span className="text-ns-silver font-bold">{item.price.toLocaleString("hu-HU")} Ft</span>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* 4. ÖSSZESÍTÉS */}
+      <div className="bg-black/50 p-6 rounded-xl border border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="text-center md:text-left">
+          <p className="text-gray-400 text-sm">Várható végösszeg:</p>
+          <div className="text-3xl font-bold text-white">
+            {total === 0 ? "0 Ft" : `${total.toLocaleString("hu-HU")} Ft`}
+          </div>
+        </div>
+        
+        <a 
+          href="#idopont"
+          className={`px-8 py-3 rounded-full font-bold uppercase tracking-wide transition-all duration-300 ${
+            total > 0 
+            ? "bg-white text-black hover:bg-ns-silver cursor-pointer" 
+            : "bg-gray-800 text-gray-600 cursor-not-allowed"
+          }`}
+        >
+          Időpontot kérek
+        </a>
+      </div>
+      <p className="text-center text-xs text-gray-600 mt-4">
+        *Az árak tájékoztató jellegűek, a haj mennyiségétől és a felhasznált anyagoktól függően változhatnak.
+      </p>
+    </div>
+  );
+}

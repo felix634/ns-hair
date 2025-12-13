@@ -3,26 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.jsx';
 import HeroTitle from '../components/HeroTitle.jsx';
 import FadeIn from '../components/FadeIn.jsx';
-import ServiceCard from '../components/ServiceCard.jsx';
+// Itt importáljuk az új árkalkulátort a statikus kártyák helyett
+import PriceCalculator from '../components/PriceCalculator.jsx';
 
 // --- ADATOK ---
 
-// Árlisták adatai
-const ferfiArlista = [
-  { name: "Gépi vágás", price: "3.500 Ft" },
-  { name: "Ollós vágás + mosás", price: "4.500 Ft" },
-  { name: "Szakálligazítás", price: "2.500 Ft" },
-  { name: "Apa-fia vágás", price: "7.500 Ft" },
-];
-
-const noiArlista = [
-  { name: "Vágás + Szárítás", price: "6.500 Ft-tól" },
-  { name: "Tőfestés", price: "8.900 Ft-tól" },
-  { name: "Teljes festés", price: "12.000 Ft-tól" },
-  { name: "Balayage / Ombre", price: "18.000 Ft-tól" },
-];
-
-// Galéria képek és leírások
+// Galéria képek és a hozzájuk tartozó leírások
 const galleryItems = [
   { img: 'munka1.png', text: 'Selymes Egyenes Balayage' },
   { img: 'munka2.png', text: 'Csokoládé Hullámok' },
@@ -74,17 +60,15 @@ const galleryItems = [
 		<section id="arak" class="py-24 overflow-hidden">
 			<div class="max-w-5xl mx-auto px-4">
 				<FadeIn client:visible>
-					<h2 class="text-3xl md:text-4xl font-bold text-white mb-16 text-center uppercase">Szolgáltatások</h2>
+					<h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center uppercase">Szolgáltatások & Árak</h2>
+					<p class="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+						Állítsd össze a saját csomagodat az árkalkulátor segítségével! Válaszd ki a nemet, a hajhosszt és a kívánt szolgáltatásokat a becsült összegért.
+					</p>
 				</FadeIn>
 				
-				<div class="grid md:grid-cols-2 gap-8 perspective-1000">
-					<FadeIn client:visible delay={0.2} direction="left">
-						<ServiceCard client:visible title="Férfiaknak" items={ferfiArlista} />
-					</FadeIn>
-					<FadeIn client:visible delay={0.4} direction="right">
-						<ServiceCard client:visible title="Hölgyeknek" items={noiArlista} />
-					</FadeIn>
-				</div>
+				<FadeIn client:visible delay={0.2} direction="up">
+					<PriceCalculator client:visible />
+				</FadeIn>
 			</div>
 		</section>
 
@@ -163,8 +147,8 @@ const galleryItems = [
 						</div>
 					</div>
 
-					<div class="rounded-2xl overflow-hidden border border-white/20 shadow-2xl h-full">
-						<div class="aspect-square h-full w-full relative">
+					<div class="rounded-2xl overflow-hidden border border-white/20 shadow-2xl h-full min-h-[400px]">
+						<div class="w-full h-full relative">
 							<iframe 
 								src="https://maps.google.com/maps?q=6721+Szeged,+József+Attila+sgrt.+4&t=&z=15&ie=UTF8&iwloc=&output=embed" 
 								width="100%" 
@@ -184,6 +168,6 @@ const galleryItems = [
 	</main>
 	
 	<footer class="bg-black py-8 text-center text-gray-600 text-sm border-t border-gray-900 relative z-20">
-		© {new Date().getFullYear()} Nagy Sándor Hair & Beauty. Minden jog fenntartva.
+		&copy; {new Date().getFullYear()} Nagy Sándor Hair & Beauty. Minden jog fenntartva.
 	</footer>
 </Layout>
