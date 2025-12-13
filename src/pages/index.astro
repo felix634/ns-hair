@@ -22,8 +22,7 @@ const noiArlista = [
   { name: "Balayage / Ombre", price: "18.000 Ft-tól" },
 ];
 
-// Galéria képek és a hozzájuk tartozó leírások
-// FONTOS: A képek (munka1.png stb.) legyenek a /public mappában!
+// Galéria képek és leírások
 const galleryItems = [
   { img: 'munka1.png', text: 'Selymes Egyenes Balayage' },
   { img: 'munka2.png', text: 'Csokoládé Hullámok' },
@@ -99,13 +98,11 @@ const galleryItems = [
 					{galleryItems.map((item, i) => (
 						<FadeIn client:visible delay={i * 0.1} direction="up" key={item.img}>
 							<div class="aspect-square rounded-lg overflow-hidden border border-white/10 group relative hover:border-ns-red transition duration-500 cursor-pointer">
-								
 								<img 
 									src={`/${item.img}`} 
 									alt={item.text} 
 									class="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
 								/>
-								
 								<div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center p-4">
 									<span class="text-white font-bold uppercase tracking-widest border-b-2 border-ns-red pb-1 text-lg">
 										{item.text}
@@ -118,7 +115,7 @@ const galleryItems = [
 			</div>
 		</section>
 
-		<section id="idopont" class="py-24">
+		<section id="idopont" class="py-24 relative z-20">
 			<FadeIn client:visible direction="up" className="max-w-4xl mx-auto px-4 text-center">
 				<div class="bg-gradient-to-br from-gray-900 to-black p-10 rounded-2xl border border-white/20 shadow-2xl">
 					<h2 class="text-3xl font-bold text-white mb-6 uppercase">Időpontfoglalás</h2>
@@ -155,9 +152,22 @@ const galleryItems = [
 				</div>
 			</FadeIn>
 		</section>
+
+		<section class="w-full h-96 bg-gray-900 relative z-10 border-t border-gray-800">
+			<iframe 
+				src="https://maps.google.com/maps?q=6721+Szeged,+József+Attila+sgrt.+4&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+				width="100%" 
+				height="100%" 
+				style="border:0;" 
+				allowfullscreen="" 
+				loading="lazy" 
+				class="w-full h-full filter grayscale invert hover:grayscale-0 hover:invert-0 transition duration-700 ease-in-out"
+				title="Nagy Sándor Hair & Beauty Térkép"
+			></iframe>
+		</section>
 	</main>
 	
-	<footer class="bg-black py-8 text-center text-gray-600 text-sm border-t border-gray-900">
+	<footer class="bg-black py-8 text-center text-gray-600 text-sm border-t border-gray-900 relative z-20">
 		&copy; {new Date().getFullYear()} Nagy Sándor Hair & Beauty. Minden jog fenntartva.
 	</footer>
 </Layout>
