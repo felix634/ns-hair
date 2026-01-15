@@ -268,9 +268,10 @@ export default function AdvancedPriceCalculator() {
                     </motion.div>
                  </div>
 
-                 <a href="#idopont" className="group relative block w-full py-4 bg-ns-red overflow-hidden rounded-full shadow-lg shadow-red-900/30 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                 {/* ITT KERÜLT BE A TEXT-CENTER OSZTÁLY */}
+                 <a href="#idopont" className="group relative block w-full py-4 bg-ns-red overflow-hidden rounded-full shadow-lg shadow-red-900/30 transition-all hover:scale-[1.02] active:scale-[0.98] text-center">
                     <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1s_infinite]"></div>
-                    <span className="relative text-white font-bold uppercase tracking-wide">Időpontfoglalás erre</span>
+                    <span className="relative text-white font-bold uppercase tracking-wide">Időpontfoglalás</span>
                  </a>
                  <p className="text-[10px] text-center text-gray-600 mt-3">*Az ár tájékoztató jellegű, a haj sűrűségétől és anyagfelhasználástól függően változhat.</p>
              </div>
