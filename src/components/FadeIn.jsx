@@ -1,26 +1,55 @@
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export default function FadeIn({ children, delay = 0, direction = "up", className = "" }) {
+gsap.registerPlugin(ScrollTrigger);
+
+export default function FadeIn({
+  children,
+  delay = 0,
+  direction = "up",
+  className = "",
+  duration = 0.9,
+  scale = false,
+}) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" }); // Akkor indul, ha látható
 
-  const directions = {
-    up: { y: 40, x: 0 },
-    down: { y: -40, x: 0 },
-    left: { y: 0, x: 40 },
-    right: { y: 0, x: -40 },
-  };
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const directions = {
+      up: { y: 50, x: 0 },
+      down: { y: -50, x: 0 },
+      left: { y: 0, x: 60 },
+      right: { y: 0, x: -60 },
+      none: { y: 0, x: 0 },
+    };
+
+    const dir = directions[direction] || directions.up;
+
+    const anim = gsap.from(ref.current, {
+      opacity: 0,
+      y: dir.y,
+      x: dir.x,
+      scale: scale ? 0.95 : 1,
+      duration: duration,
+      delay: delay,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ref.current,
+        start: "top 88%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    return () => {
+      anim.kill();
+    };
+  }, [delay, direction, duration, scale]);
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, ...directions[direction] }}
-      animate={isInView ? { opacity: 1, y: 0, x: 0 } : {}}
-      transition={{ duration: 0.8, delay: delay, ease: "easeOut" }}
-      className={className}
-    >
+    <div ref={ref} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }
