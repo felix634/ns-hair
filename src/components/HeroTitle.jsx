@@ -49,7 +49,7 @@ export default function HeroTitle() {
       {/* Name with per-character animation */}
       <h1
         ref={nameRef}
-        className="text-5xl md:text-7xl lg:text-9xl font-serif font-bold uppercase tracking-tight mb-4 leading-tight"
+        className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-serif font-bold uppercase tracking-tight mb-4 leading-tight"
         style={{ perspective: "1000px" }}
       >
         {name.split("").map((char, i) => (
