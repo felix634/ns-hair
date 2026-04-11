@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ns-hair.netlify.app/sitemap-index.xml

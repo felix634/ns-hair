@@ -52,7 +52,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <a href="#" className="group flex items-center gap-3">
-              <img className="h-11 w-auto transition-transform duration-300 group-hover:scale-105" src="/logo.png" alt="Nagy Sándor Logo" />
+              <img className="h-11 w-auto transition-transform duration-300 group-hover:scale-105" src="/logo.png" alt="Nagy Sándor Hair & Beauty – Prémium Fodrászat Szegeden" width="666" height="375" />
               <div className="hidden sm:block">
                 <span className="text-white font-serif text-lg font-semibold tracking-wide">NS</span>
                 <span className="text-ns-gold text-xs block -mt-1 tracking-[0.2em] uppercase font-light">Hair & Beauty</span>
