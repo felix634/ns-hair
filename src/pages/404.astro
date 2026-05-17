@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 – Az oldal nem található | Nagy Sándor Hair & Beauty">
+    <main class="min-h-screen flex items-center justify-center px-4 py-20 relative">
+        <!-- Decorative glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-ns-red/5 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div class="max-w-2xl mx-auto text-center relative z-10">
+
+            <!-- Logo -->
+            <a href="/" class="inline-flex items-center gap-3 mb-12 group">
+                <img src="/logo.png" alt="Nagy Sándor Hair & Beauty" class="h-12 w-auto transition-transform duration-300 group-hover:scale-105" width="666" height="375" />
+                <div class="text-left">
+                    <span class="text-white font-serif text-lg font-semibold tracking-wide">Nagy Sándor</span>
+                    <span class="text-ns-gold text-xs block -mt-1 tracking-[0.2em] uppercase font-light">Hair & Beauty</span>
+                </div>
+            </a>
+
+            <!-- 404 number -->
+            <div class="relative mb-8">
+                <h1 class="text-[120px] md:text-[180px] font-serif font-bold leading-none text-transparent bg-clip-text bg-gradient-to-b from-white via-ns-gold to-ns-red select-none">
+                    404
+                </h1>
+                <div class="accent-line mb-2"></div>
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-serif font-bold text-white mb-4 uppercase">
+                Az oldal nem található
+            </h2>
+
+            <p class="text-gray-400 text-base md:text-lg leading-relaxed mb-10 max-w-md mx-auto">
+                Sajnáljuk, a keresett oldal nem létezik vagy elköltözött. Térj vissza a főoldalra, vagy hívj minket közvetlenül!
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="/" class="group relative bg-gradient-to-r from-ns-red to-ns-red-light text-white font-bold py-4 px-8 rounded-full transition-all duration-500 uppercase tracking-wide text-base shadow-lg shadow-ns-red/20 hover:shadow-ns-red/40 hover:-translate-y-1 inline-block overflow-hidden w-full sm:w-auto text-center">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
+                    <span class="relative">← Vissza a főoldalra</span>
+                </a>
+                <a href="tel:+36305355678" class="text-gray-400 hover:text-ns-gold transition-colors duration-300 font-medium uppercase tracking-wider text-sm border-b border-gray-700 hover:border-ns-gold pb-1">
+                    +36 30 535 5678
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 relative z-20">
+        <div class="max-w-6xl mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-gray-700 text-xs text-center md:text-left">© {new Date().getFullYear()} NS HAIR Kft. Minden jog fenntartva.</p>
+                <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs">
+                    <a href="/impresszum" class="text-gray-500 hover:text-ns-gold transition-colors">Impresszum</a>
+                    <a href="/adatkezelesi-tajekoztato" class="text-gray-500 hover:text-ns-gold transition-colors">Adatkezelési tájékoztató</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</Layout>
