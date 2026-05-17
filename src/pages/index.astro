@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.jsx';
 import HeroTitle from '../components/HeroTitle.jsx';
 import FadeIn from '../components/FadeIn.jsx';
+import ConsentMap from '../components/ConsentMap.jsx';
 
 import GSAPAnimations from '../components/GSAPAnimations.jsx';
 
@@ -268,7 +269,17 @@ const stats = [
                                 </div>
                                 <div>
                                     <h3 class="text-sm font-bold text-white uppercase mb-1 tracking-wider">Címünk</h3>
-                                    <p class="text-gray-400 text-sm">6721 Szeged, József Attila sgrt. 4-2/26</p>
+                                    <p class="text-gray-400 text-sm">6720 Szeged, Horváth Mihály u. 9.</p>
+                                </div>
+                            </div>
+                            <!-- Email -->
+                            <div class="flex items-start gap-4 group">
+                                <div class="bg-ns-red/10 group-hover:bg-ns-red/20 p-3 rounded-xl shrink-0 transition-colors duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-ns-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-bold text-white uppercase mb-1 tracking-wider">Email</h3>
+                                    <a href="mailto:nagysandorhair@gmail.com" class="text-gray-400 hover:text-ns-gold text-sm transition-colors duration-300 break-all">nagysandorhair@gmail.com</a>
                                 </div>
                             </div>
                             <!-- Nyitvatartás -->
@@ -278,8 +289,8 @@ const stats = [
                                 </div>
                                 <div>
                                     <h3 class="text-sm font-bold text-white uppercase mb-1 tracking-wider">Nyitvatartás</h3>
-                                    <p class="text-gray-400 text-sm">Hétfő – Péntek: 09:00 – 18:00</p>
-                                    <p class="text-gray-400 text-sm">Szombat: 09:00 – 13:00</p>
+                                    <p class="text-gray-400 text-sm">Hétfő – Szombat: 07:00 – 19:00</p>
+                                    <p class="text-gray-400 text-sm">Vasárnap: Zárva</p>
                                 </div>
                             </div>
                         </div>
@@ -287,7 +298,7 @@ const stats = [
 
                     <!-- Map -->
                     <div id="contact-map" class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl h-full min-h-[280px] md:min-h-[400px] relative group">
-                        <iframe src="https://maps.google.com/maps?q=6721+Szeged,+J%C3%B3zsef+Attila+sgrt.+4&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" class="absolute inset-0 w-full h-full filter grayscale-[80%] brightness-[0.6] contrast-[1.2] group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-700 ease-in-out" title="Nagy Sándor Hair & Beauty Térkép"></iframe>
+                        <ConsentMap client:load />
                     </div>
                 </div>
             </div>
@@ -329,16 +340,8 @@ const stats = [
                     <h4 class="text-white text-xs font-bold uppercase tracking-[0.2em] mb-4">Közösségi média</h4>
                     <div class="flex items-center justify-center md:justify-end gap-4">
                         <!-- Facebook -->
-                        <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center text-gray-500 hover:text-ns-gold hover:border-ns-gold/30 transition-all duration-300" aria-label="Facebook">
+                        <a href="https://www.facebook.com/NagySandorHair" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full glass flex items-center justify-center text-gray-500 hover:text-ns-gold hover:border-ns-gold/30 transition-all duration-300" aria-label="Facebook">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-                        </a>
-                        <!-- Instagram -->
-                        <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center text-gray-500 hover:text-ns-gold hover:border-ns-gold/30 transition-all duration-300" aria-label="Instagram">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="1.5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="1.5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="1.5"/></svg>
-                        </a>
-                        <!-- TikTok -->
-                        <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center text-gray-500 hover:text-ns-gold hover:border-ns-gold/30 transition-all duration-300" aria-label="TikTok">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89A2.89 2.89 0 019.49 12.4a2.93 2.93 0 01.53.05V9a6.27 6.27 0 00-1-.05A6.34 6.34 0 002.68 15.3 6.34 6.34 0 009 21.64a6.34 6.34 0 006.34-6.34V9.19a8.16 8.16 0 004.65 1.43V7.16a4.77 4.77 0 01-.4-.47z"/></svg>
                         </a>
                     </div>
                     <p class="text-gray-600 text-xs mt-4">Kövess minket a legfrissebb stílusokért!</p>
@@ -347,10 +350,14 @@ const stats = [
 
             <!-- Bottom bar -->
             <div class="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-                <p class="text-gray-700 text-xs">© {new Date().getFullYear()} Nagy Sándor Hair & Beauty. Minden jog fenntartva.</p>
-                <div class="flex items-center gap-2">
-                    <div class="glow-dot"></div>
-                    <span class="text-gray-600 text-xs">Szeged, Magyarország</span>
+                <p class="text-gray-700 text-xs text-center md:text-left">© {new Date().getFullYear()} NS HAIR Kft. Minden jog fenntartva.</p>
+                <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs">
+                    <a href="/impresszum" class="text-gray-500 hover:text-ns-gold transition-colors">Impresszum</a>
+                    <a href="/adatkezelesi-tajekoztato" class="text-gray-500 hover:text-ns-gold transition-colors">Adatkezelési tájékoztató</a>
+                    <div class="flex items-center gap-2">
+                        <div class="glow-dot"></div>
+                        <span class="text-gray-600">Szeged, Magyarország</span>
+                    </div>
                 </div>
             </div>
         </div>

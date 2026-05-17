@@ -1,6 +1,7 @@
 ---
 // FONTOS: A Tailwind 4 stílusok importálása
 import '../styles/app.css';
+import CookieBanner from '../components/CookieBanner.jsx';
 
 interface Props {
 	title: string;
@@ -53,34 +54,30 @@ const description = 'Nagy Sándor Hair & Beauty – Prémium fodrászat Szegeden
 			"@context": "https://schema.org",
 			"@type": "HairSalon",
 			"name": "Nagy Sándor Hair & Beauty",
+			"legalName": "NS HAIR Kft.",
 			"description": description,
 			"url": siteUrl,
 			"telephone": "+36305355678",
+			"email": "nagysandorhair@gmail.com",
 			"image": `${siteUrl}/logo.png`,
 			"address": {
 				"@type": "PostalAddress",
-				"streetAddress": "József Attila sgrt. 4-2/26",
+				"streetAddress": "Horváth Mihály u. 9.",
 				"addressLocality": "Szeged",
-				"postalCode": "6721",
+				"postalCode": "6720",
 				"addressCountry": "HU"
 			},
 			"geo": {
 				"@type": "GeoCoordinates",
-				"latitude": 46.253,
-				"longitude": 20.148
+				"latitude": 46.255128,
+				"longitude": 20.150222
 			},
 			"openingHoursSpecification": [
 				{
 					"@type": "OpeningHoursSpecification",
-					"dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-					"opens": "09:00",
-					"closes": "18:00"
-				},
-				{
-					"@type": "OpeningHoursSpecification",
-					"dayOfWeek": "Saturday",
-					"opens": "09:00",
-					"closes": "13:00"
+					"dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+					"opens": "07:00",
+					"closes": "19:00"
 				}
 			],
 			"priceRange": "$$",
@@ -112,6 +109,8 @@ const description = 'Nagy Sándor Hair & Beauty – Prémium fodrászat Szegeden
 		<div class="relative z-20">
 			<slot />
 		</div>
+
+		<CookieBanner client:load />
 
 	</body>
 </html>
