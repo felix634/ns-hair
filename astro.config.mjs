@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://ns-hair.netlify.app',
+  site: 'https://nagysandorhair.hu',
   vite: {
     plugins: [tailwindcss()],
   },
