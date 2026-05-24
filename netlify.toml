@@ -1,0 +1,49 @@
+# Netlify konfiguráció — Nagy Sándor Hair & Beauty
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# ─── Security Headers ──────────────────────────────────────────────────────
+# Minden válaszra alkalmazva. A Content-Security-Policy engedélyezi a
+# Google Maps iframe-et, Google Fonts-ot és a self-hosted erőforrásokat.
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Clickjacking védelem
+    X-Frame-Options = "SAMEORIGIN"
+
+    # MIME-sniffing tiltása
+    X-Content-Type-Options = "nosniff"
+
+    # Referrer csak ugyanazon origin-en belül teljes, kívülre csak az origin
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # Böngésző API-k tiltása amiket nem használunk
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()"
+
+    # HTTPS kényszerítés 1 évre, preload list jogosultsággal
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+    # Cross-Origin policy-k
+    Cross-Origin-Opener-Policy = "same-origin"
+
+    # Content Security Policy
+    # - self: saját domain
+    # - 'unsafe-inline' script/style: Astro hidrációhoz és Tailwindhez szükséges
+    # - Google Maps iframe + Google Fonts engedélyezve
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+
+# ─── Cache Headers ─────────────────────────────────────────────────────────
+# Hashelt asset-eknek (Astro buildje) hosszú cache, HTML-nek rövid
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
