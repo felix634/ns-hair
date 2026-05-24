@@ -44,10 +44,11 @@ ns-hair/
 ## 🚀 Helyi fejlesztés
 
 ```bash
-npm install         # függőségek telepítése (csak első alkalommal)
-npm run dev         # dev szerver: http://localhost:4321
-npm run build       # production build a ./dist/ mappába
-npm run preview     # build előzetes megtekintése
+npm install              # függőségek telepítése (csak első alkalommal)
+npm run dev              # dev szerver: http://localhost:4321
+npm run build            # production build a ./dist/ mappába
+npm run preview          # build előzetes megtekintése
+npm run optimize-assets  # PNG-k → WebP konverzió + favicon + OG kép generálás
 ```
 
 ---
@@ -66,11 +67,13 @@ npm run preview     # build előzetes megtekintése
 ## ✏️ Gyakori módosítások
 
 ### Új galéria fotó hozzáadása
-1. Tedd a képet a `public/` mappába (pl. `munka7.png`)
-2. Nyisd meg [src/pages/index.astro](src/pages/index.astro)
-3. A `galleryItems` tömbhöz adj hozzá egy bejegyzést:
+1. Tedd a PNG / JPG képet a `public/` mappába (pl. `munka7.png`)
+2. Futtasd: `npm run optimize-assets` → automatikusan WebP-re konvertálja
+3. (Opcionális) Töröld az eredeti PNG-t (a WebP marad)
+4. Nyisd meg [src/pages/index.astro](src/pages/index.astro)
+5. A `galleryItems` tömbhöz adj hozzá egy bejegyzést:
    ```js
-   { img: 'munka7.png', text: 'Új munka leírása' }
+   { img: 'munka7.webp', text: 'Új munka leírása' }
    ```
 
 ### Nyitvatartás módosítása
@@ -114,8 +117,14 @@ Több helyen szerepel — keress rá a `+36305355678` és `nagysandorhair@gmail.
 ## 📝 Megjegyzések jövőbeli fejlesztéshez
 
 Még nem készült el (átadás után jöhet):
-- Képoptimalizálás (WebP konverzió + Astro `<Image>` komponens)
-- Open Graph kép (1200×630)
-- Apple-touch-icon (180×180) iOS-hez
-- Analytics (Plausible vagy GA4)
-- Google Fonts self-hosting (jelenleg CDN-ről jön)
+- **Analytics** (Plausible vagy GA4) — látogatószámok mérése
+- **Schema.org `aggregateRating`** — Google review csillagok beépítése a JSON-LD-be
+- **Igazi OG kép** — jelenleg generált placeholder, ideális egy valós szalon fotó
+- **Astro `<Image>` komponens** — jelenleg statikus `.webp`, automatikus többméretű variánsokhoz felhasználható lenne
+
+## 🛠 Mit használunk és miért
+
+- **Self-hosted fontok** (@fontsource) → nincs külső Google kérés (GDPR + sebesség)
+- **WebP képek** → ~80%-kal kisebbek mint az eredeti PNG-k
+- **Cookie consent** → Google Maps csak elfogadás után tölt
+- **netlify.toml security headerek** → CSP, HSTS, X-Frame-Options, Permissions-Policy

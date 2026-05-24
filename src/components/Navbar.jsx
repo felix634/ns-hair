@@ -51,8 +51,8 @@ export default function Navbar() {
 
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#" className="group flex items-center gap-3">
-              <img className="h-11 w-auto transition-transform duration-300 group-hover:scale-105" src="/logo.png" alt="Nagy Sándor Hair & Beauty – Prémium Fodrászat Szegeden" width="666" height="375" />
+            <a href="/" aria-label="Főoldal – Nagy Sándor Hair & Beauty" className="group flex items-center gap-3">
+              <img className="h-11 w-auto transition-transform duration-300 group-hover:scale-105" src="/logo.webp" alt="Nagy Sándor Hair & Beauty – Prémium Fodrászat Szegeden" width="666" height="375" />
               <div className="hidden sm:block">
                 <span className="text-white font-serif text-lg font-semibold tracking-wide">NS</span>
                 <span className="text-ns-gold text-xs block -mt-1 tracking-[0.2em] uppercase font-light">Hair & Beauty</span>
@@ -67,6 +67,7 @@ export default function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
+                  aria-current={activeSection === link.href ? 'page' : undefined}
                   className={`relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 uppercase tracking-wider group ${activeSection === link.href
                       ? 'text-white'
                       : 'text-gray-400 hover:text-white'
@@ -93,9 +94,12 @@ export default function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white transition-colors"
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              aria-label={isOpen ? 'Menü bezárása' : 'Menü nyitása'}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ns-gold/60"
             >
-              <span className="sr-only">Menü nyitása</span>
+              <span className="sr-only">{isOpen ? 'Menü bezárása' : 'Menü nyitása'}</span>
               <div className="w-6 h-5 relative flex flex-col justify-between">
                 <span className={`block h-0.5 w-full bg-current transform transition-all duration-300 origin-center ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
                 <span className={`block h-0.5 w-full bg-current transition-all duration-300 ${isOpen ? 'opacity-0 scale-0' : ''}`}></span>
@@ -107,12 +111,13 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div id="mobile-menu" className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="bg-black/95 backdrop-blur-md border-t border-white/10 px-4 pt-4 pb-6 space-y-1">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
+              aria-current={activeSection === link.href ? 'page' : undefined}
               onClick={() => setIsOpen(false)}
               className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${activeSection === link.href
                   ? 'text-white bg-white/5 border-l-2 border-ns-red'

@@ -29,13 +29,20 @@ const description = 'Nagy Sándor Hair & Beauty – Prémium fodrászat Szegeden
 
 		<!-- Favicon -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
 
 		<!-- Open Graph -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalUrl} />
-		<meta property="og:image" content={`${siteUrl}/logo.png`} />
+		<meta property="og:image" content={`${siteUrl}/og-image.jpg`} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Nagy Sándor Hair & Beauty – Prémium fodrászat Szegeden" />
 		<meta property="og:locale" content="hu_HU" />
 		<meta property="og:site_name" content="Nagy Sándor Hair & Beauty" />
 
@@ -43,11 +50,7 @@ const description = 'Nagy Sándor Hair & Beauty – Prémium fodrászat Szegeden
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={`${siteUrl}/logo.png`} />
-
-		<!-- Preconnect Google Fonts -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<meta name="twitter:image" content={`${siteUrl}/og-image.jpg`} />
 
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
@@ -62,7 +65,7 @@ const description = 'Nagy Sándor Hair & Beauty – Prémium fodrászat Szegeden
 			"url": siteUrl,
 			"telephone": "+36305355678",
 			"email": "nagysandorhair@gmail.com",
-			"image": `${siteUrl}/logo.png`,
+			"image": `${siteUrl}/og-image.jpg`,
 			"address": {
 				"@type": "PostalAddress",
 				"streetAddress": "Horváth Mihály u. 9.",
@@ -98,7 +101,7 @@ const description = 'Nagy Sándor Hair & Beauty – Prémium fodrászat Szegeden
 		<!-- Fixed Background with Parallax Target -->
 		<div class="fixed inset-0 w-full h-full -z-10">
 			<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/90 z-10"></div>
-			<img id="hero-bg" src="/bg.png" alt="" class="w-full h-full object-cover" width="1280" height="720" />
+			<img id="hero-bg" src="/bg.webp" alt="" class="w-full h-full object-cover" width="1280" height="720" />
 		</div>
 
 		<!-- Floating Decorative Elements -->

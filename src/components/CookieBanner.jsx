@@ -36,7 +36,7 @@ export default function CookieBanner() {
 
           <div className="flex-1">
             <h3 className="text-white font-serif text-base md:text-lg font-semibold mb-1.5 flex items-center gap-2">
-              <span className="text-ns-gold">🍪</span>
+              <span className="text-ns-gold" aria-hidden="true">🍪</span>
               <span>Sütik használata</span>
             </h3>
             <p className="text-gray-400 text-xs md:text-sm leading-relaxed">

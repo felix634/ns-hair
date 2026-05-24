@@ -33,7 +33,7 @@
     # - self: saját domain
     # - 'unsafe-inline' script/style: Astro hidrációhoz és Tailwindhez szükséges
     # - Google Maps iframe + Google Fonts engedélyezve
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
 
 # ─── Cache Headers ─────────────────────────────────────────────────────────
 # Hashelt asset-eknek (Astro buildje) hosszú cache, HTML-nek rövid
